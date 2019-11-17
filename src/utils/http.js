@@ -40,7 +40,7 @@ function hideLoading() {
 
 // 防抖：将 300ms 间隔内的关闭 loading 便合并为一次。防止连续请求时， loading闪烁的问题。
 var toHideLoading = _.debounce(() => {
-  loading.close()
+  if (loading != null) { loading.close() }
   loading = null
 }, 300)
 

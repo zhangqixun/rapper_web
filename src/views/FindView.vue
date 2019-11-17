@@ -7,7 +7,7 @@
         <div class="movies-result">
             <div class="border-movie" v-if="movie.id" v-for="movie in movies" :key="movie.id">
                 <div class="single-movie" @click="goToMovie(movie.id)" @mouseenter="change_movieclass(movie)" @mouseleave="re_movieclass()">
-                <img width="100%" height="85%" :src="movie.poster" >
+                <img width="100%" height="85%" :src="movie.poster"  alt="">
                 <div class="movie-title">
                     <label>{{movie.title}}<span> {{movie.imdb_rating}}</span></label>
                 </div>
@@ -46,50 +46,50 @@
 </template>
 
 <script>
-  import movieApi from 'src/api/movieApi'
-  export default {
-    name: 'FindView',
-    data() {
-      return {
-        current_type: '',
-        typeList: ['纪录', '音乐', '体育', '短片', '惊悚', '神秘', '喜剧', '犯罪', '历史', '传记', '冒险', '爱情', '动作', '戏剧', '西方', '战争', '恐怖', '动画', '科幻', '家庭'],
-        typeMap: ['Documentary', 'Music', 'Sport', 'Short', 'Thriller', 'Mystery', 'Comedy', 'Crime', 'History', 'Biography', 'Adventure', 'Romance', 'Action', 'Drama', 'Western', 'War', 'Horror', 'Animation', 'Sci-Fi', 'Family'],
-        current_movie: '',
-        movies: '',
-        page: 1,
-        total: null
-      }
+import movieApi from 'src/api/movieApi'
+export default {
+  name: 'FindView',
+  data() {
+    return {
+      current_type: '',
+      typeList: ['纪录', '音乐', '体育', '短片', '惊悚', '神秘', '喜剧', '犯罪', '历史', '传记', '冒险', '爱情', '动作', '戏剧', '西方', '战争', '恐怖', '动画', '科幻', '家庭'],
+      typeMap: ['Documentary', 'Music', 'Sport', 'Short', 'Thriller', 'Mystery', 'Comedy', 'Crime', 'History', 'Biography', 'Adventure', 'Romance', 'Action', 'Drama', 'Western', 'War', 'Horror', 'Animation', 'Sci-Fi', 'Family'],
+      current_movie: '',
+      movies: '',
+      page: 1,
+      total: null
+    }
+  },
+  methods: {
+    chooseType(arg) {
+      this.current_type = arg
+      this.fetchData(this.page)
     },
-    methods: {
-      chooseType(arg) {
-        this.current_type = arg
-        this.fetchData(this.page)
-      },
-      fetchData(page) {
-        this.page = page
-        this.movies = ''
-        const type = this.typeMap[this.typeList.indexOf(this.current_type)]
-        movieApi.getMovieByType(type, this.page).then((res) => {
-          this.total = res.data.data.total
-          this.movies = res.data.data.projects
-        })
-      },
-      change_movieclass: function(arg) {
-        this.current_movie = arg
-      },
-      re_movieclass: function() {
-        this.current_movie = ''
-      },
-      goToMovie: function(id) {
-        this.$router.push('/movie/' + id)
-      }
+    fetchData(page) {
+      this.page = page
+      this.movies = ''
+      const type = this.typeMap[this.typeList.indexOf(this.current_type)]
+      movieApi.getMovieByType(type, this.page).then((res) => {
+        this.total = res.data.data.total
+        this.movies = res.data.data.projects
+      })
     },
-    computed: {
-      rating() {
-        return parseFloat(this.current_movie.imdb_rating)
-      }
+    change_movieclass: function(arg) {
+      this.current_movie = arg
+    },
+    re_movieclass: function() {
+      this.current_movie = ''
+    },
+    goToMovie: function(id) {
+      this.$router.push('/movie/' + id)
+    }
+  },
+  computed: {
+    rating() {
+      return parseFloat(this.current_movie.imdb_rating)
     }
   }
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -112,7 +112,7 @@
     .find-view .movies-result
         width 1100px
         height 550px
-        margin 0px auto
+        margin 0 auto
     @media screen and (min-width: 1201px) {
         .find-view .movies-result {width: 1100px}
     }
@@ -178,7 +178,7 @@
         padding 10px 10px 10px 10px
     .movie-title
         text-align center
-        padding 0px
+        padding 0
         font-size 12px
         margin-bottom 10px
     .movie-title span
@@ -189,7 +189,7 @@
         margin 20px auto
         height 300px
     .button_index
-        padding 0px
+        padding 0
         border-bottom 1px solid #BEBEBE
     @media screen and (min-width: 1201px) {
         .button_index {width: 1140px}
@@ -232,9 +232,9 @@
         margin-left 50px
     .select_input
         width 200px
-        margin 20px 0px 20px 30px
+        margin 20px 0 20px 30px
         float left
     .load-more-button
         width 100%
-        margin 20px 0px 20px 0px
+        margin 20px 0 20px 0
 </style>

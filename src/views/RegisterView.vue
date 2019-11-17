@@ -52,63 +52,63 @@
 </template>
 
 <script>
-  import SHA512 from 'crypto-js/sha512'
-  import userApi from '../api/userApi'
-  export default {
-    name: 'LoginView',
-    data() {
-      return {
-        loginForm: {
-          username: '',
-          password: '',
-          nickname: '',
-          phone: ''
-        },
-        loginRules: {
-          username: [{ required: true, trigger: 'blur' }],
-          password: [{ required: true, trigger: 'blur' }],
-          nickname: [{ required: true, trigger: 'blur' }],
-          phone: [{ required: true, trigger: 'blur' }]
-        },
-        passwordType: 'password'
-      }
-    },
-    beforeCreate() {
-      if (this.$store.state.user.login) {
-        this.$router.replace('/')
-      }
-    },
-    methods: {
-      showPwd() {
-        if (this.passwordType === 'password') {
-          this.passwordType = ''
-        } else {
-          this.passwordType = 'password'
-        }
-        this.$nextTick(() => {
-          this.$refs.password.focus()
-        })
+import SHA512 from 'crypto-js/sha512'
+import userApi from '../api/userApi'
+export default {
+  name: 'LoginView',
+  data() {
+    return {
+      loginForm: {
+        username: '',
+        password: '',
+        nickname: '',
+        phone: ''
       },
-      register() {
-        var data = {
-          'Name': this.loginForm.username,
-          'Password': SHA512(this.loginForm.password).toString(),
-          'Nickname': this.loginForm.nickname,
-          'Phone': this.loginForm.phone
-        }
-        if (data.username === '' || data.password === '' || data.nickname === '' || data.phone === '') {
-          this.$message({ message: '注册信息不完整！', type: 'warning', duration: 600, center: true })
-          return
-        }
-        userApi.register(data).then(() => {
-          this.$message({ message: '注册成功！', type: 'info', duration: 600, center: true })
-        }).catch((error) => {
-          this.$message({ message: error, type: 'warning', duration: 600, center: true })
-        })
-        this.$router.push('Login')
+      loginRules: {
+        username: [{ required: true, trigger: 'blur' }],
+        password: [{ required: true, trigger: 'blur' }],
+        nickname: [{ required: true, trigger: 'blur' }],
+        phone: [{ required: true, trigger: 'blur' }]
+      },
+      passwordType: 'password'
+    }
+  },
+  beforeCreate() {
+    if (this.$store.state.user.login) {
+      this.$router.replace('/')
+    }
+  },
+  methods: {
+    showPwd() {
+      if (this.passwordType === 'password') {
+        this.passwordType = ''
+      } else {
+        this.passwordType = 'password'
       }
+      this.$nextTick(() => {
+        this.$refs.password.focus()
+      })
+    },
+    register() {
+      var data = {
+        'Name': this.loginForm.username,
+        'Password': SHA512(this.loginForm.password).toString(),
+        'Nickname': this.loginForm.nickname,
+        'Phone': this.loginForm.phone
+      }
+      if (data.username === '' || data.password === '' || data.nickname === '' || data.phone === '') {
+        this.$message({ message: '注册信息不完整！', type: 'warning', duration: 600, center: true })
+        return
+      }
+      userApi.register(data).then(() => {
+        this.$message({ message: '注册成功！', type: 'info', duration: 600, center: true })
+      }).catch((error) => {
+        this.$message({ message: error, type: 'warning', duration: 600, center: true })
+      })
+      this.$router.push('Login')
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

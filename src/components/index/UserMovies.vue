@@ -3,7 +3,7 @@
         <h3> {{msg}} </h3>
         <div class="border-movie" v-bind:key="movie.id" v-for="movie in movies">
             <div class="single-movie" @click="goToMovie(movie.id)" @mouseenter="change_class(movie)" @mouseleave="re_class()">
-                <img width="100%" height="85%" :src="movie.poster" >
+                <img width="100%" height="85%" :src="movie.poster"  alt="">
                 <div class="movie-title">
                     <label>{{movie.title}}<span> {{movie.imdb_rating}}</span></label>
                 </div>
@@ -32,57 +32,57 @@
 </template>
 
 <script>
-  import movieApi from '../../api/movieApi'
-  export default {
-    name: 'UserMovies',
-    mounted() {
-      this.get_today_movies()
+import movieApi from '../../api/movieApi'
+export default {
+  name: 'UserMovies',
+  mounted() {
+    this.get_today_movies()
+  },
+  data() {
+    return {
+      msg: '猜你喜欢',
+      current_movie: '',
+      movies: []
+    }
+  },
+  methods: {
+    change_class: function(arg) {
+      this.current_movie = arg
     },
-    data() {
-      return {
-        msg: '猜你喜欢',
-        current_movie: '',
-        movies: []
-      }
+    re_class: function() {
+      this.current_movie = ''
     },
-    methods: {
-      change_class: function(arg) {
-        this.current_movie = arg
-      },
-      re_class: function() {
-        this.current_movie = ''
-      },
-      get_today_movies() {
-        var text = ''
-        var possible = 'abcdefghijklmnopqrstuvwxyz'
-        for (var i = 0; i < 1; i++) { text += possible.charAt(Math.floor(Math.random() * possible.length)) }
-        movieApi.searchMovieByTitle(text, 1, true).then((res) => {
-          if (res.data['Response'] === 'False') {
-            this.$message({ message: res.data['Error'], type: 'warning', duration: 1000, center: true })
-          } else {
-            this.movies = res.data.data.projects.slice(0, 5)
-          }
-        })
-      },
-      goToMovie(id) {
-        this.$router.push('/movie/' + id)
-      }
+    get_today_movies() {
+      var text = ''
+      var possible = 'abcdefghijklmnopqrstuvwxyz'
+      for (var i = 0; i < 1; i++) { text += possible.charAt(Math.floor(Math.random() * possible.length)) }
+      movieApi.searchMovieByTitle(text, 1, true).then((res) => {
+        if (res.data['Response'] === 'False') {
+          this.$message({ message: res.data['Error'], type: 'warning', duration: 1000, center: true })
+        } else {
+          this.movies = res.data.data.projects.slice(0, 5)
+        }
+      })
     },
-    computed: {
-      rating() {
-        return parseFloat(this.current_movie.imdb_rating)
-      }
+    goToMovie(id) {
+      this.$router.push('/movie/' + id)
+    }
+  },
+  computed: {
+    rating() {
+      return parseFloat(this.current_movie.imdb_rating)
     }
   }
+}
 </script>
 
 <style>
-    .today-movies{height: 720px;margin:0px auto;}
+    .today-movies{height: 720px;margin:0 auto;}
 </style>
 <style lang="stylus" scoped>
     .today-movies
         height 350px
-        margin 0px auto
+        margin 0 auto
         h3
             border-bottom 1px solid #d0d0d0
             padding-bottom 15px
@@ -151,7 +151,7 @@
         padding 10px 10px 10px 10px
     .movie-title
         text-align center
-        padding 0px
+        padding 0
         font-size 12px
         margin-bottom 10px
     .movie-title span
