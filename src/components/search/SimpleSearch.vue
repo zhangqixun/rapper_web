@@ -45,7 +45,6 @@ export default {
           this.suggestions = res.data.data.projects
         })
       }, 500)
-
   },
   watch: {
     searchKeywords() {

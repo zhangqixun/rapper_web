@@ -82,21 +82,6 @@
         <h2>获奖情况</h2>
         {{ movie.awards }}
       </section>
-<!--      <section id="also-like-movie" class="section-same">-->
-<!--        <h2>喜欢这部电影的人也喜欢</h2>-->
-<!--        <div v-for="similarityMovie in movie.similarityMovies" id="also-like-movie-content" v-bind:key="similarityMovie.id">-->
-<!--          <dl class="alsoLikeID" @click="goTo(similarityMovie.id)">-->
-<!--            <dt>-->
-<!--              <a>-->
-<!--                <img :src="similarityMovie.poster">-->
-<!--              </a>-->
-<!--            </dt>-->
-<!--            <dd>-->
-<!--              <a>{{ similarityMovie.title }}</a>-->
-<!--            </dd>-->
-<!--          </dl>-->
-<!--        </div>-->
-<!--      </section>-->
       <section class="like-movies">
         <h2>喜欢这部电影的人也喜欢</h2>
         <div class="border-movie" v-for="similarityMovie in movie.similarityMovies" :key="similarityMovie.id">
@@ -167,6 +152,15 @@ export default {
     },
     goTo(id) {
       this.$router.replace('/movie/' + id)
+      if (this.login !== false) {
+        var data = {
+          'token': this.token,
+          'movie_title': this.movie.title,
+          'movie_id': this.movie.id,
+          'time_on_site': String(this.second)
+        }
+        userApi.insertRecord(data)
+      }
       this.get_one_movie()
     }
   }

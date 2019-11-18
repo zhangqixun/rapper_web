@@ -3,7 +3,7 @@ export default {
     window.localStorage.setItem(key, JSON.stringify(val))
   },
   fetch(key) {
-    return JSON.parse(window.localStorage.getItem(key) || '[]')
+    return JSON.parse(window.localStorage.getItem(key) || null)
   },
   clear() {
     window.localStorage.clear()

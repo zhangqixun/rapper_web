@@ -21,7 +21,6 @@
 </template>
 
 <script>
-// 项目地址：https://github.com/shhdgit/vue-easy-slider
 import { Slider, SliderItem } from 'vue-easy-slider'
 export default {
   name: 'MovieSlider',
@@ -33,5 +32,4 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-/*.movie-slider*/
 </style>

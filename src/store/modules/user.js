@@ -1,22 +1,30 @@
-import * as types from '../mutation-types'
 import Store from '../../utils/store.js'
 import userApi from '../../api/userApi'
 
 const state = {
-  login: false,
-  token: Store.fetch('token')
+  login: Store.fetch('login') != null,
+  token: Store.fetch('token'),
+  user_id: Store.fetch('user_id')
 }
 
 const mutations = {
-  [types.LOGIN](state, token) {
+  LOGIN(state, token) {
     state.login = true
     state.token = token
-    Store.save('token', state)
+    Store.save('login', state.login)
+    Store.save('token', state.token)
   },
-  [types.LOGOUT](state) {
+  SET_ID: (state, user_id) => {
+    state.user_id = user_id
+    Store.save('user_id', state.user_id)
+  },
+  LOGOUT(state) {
     state.login = false
-    state.token = ''
+    state.token = null
+    state.user_id = null
+    Store.remove('login')
     Store.remove('token')
+    Store.remove('user_id')
   }
 }
 
@@ -28,7 +36,8 @@ const actions = {
         if (response.data.code !== '200') {
           throw new Error(response.data.message)
         }
-        commit(types.LOGIN, response.data.data.token)
+        commit('LOGIN', response.data.data.token)
+        commit('SET_ID', response.data.data.user_id)
         resolve()
       }).catch(error => {
         reject(error)
@@ -37,7 +46,7 @@ const actions = {
   },
   doLogout({ commit }, token) {
     userApi.logout(token).then(() => {
-      commit(types.LOGOUT)
+      commit('LOGOUT')
     })
   }
 }

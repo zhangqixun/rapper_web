@@ -6,7 +6,6 @@
       </el-input>
     </div>
     <div class="search-result">
-      <mu-list>
         <template v-for="movie in movies">
           <div v-if="movie.id" class="movie-detail" @click="goToMovie(movie.id)" v-bind:key="movie.id">
             <div class="movie-img">
@@ -23,7 +22,6 @@
             </div>
           </div>
         </template>
-      </mu-list>
     </div>
     <el-pagination
             v-if=movies

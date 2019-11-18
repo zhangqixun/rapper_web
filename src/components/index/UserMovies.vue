@@ -1,5 +1,5 @@
 <template>
-    <div class="today-movies">
+    <div class="today-movies" v-if="user_id">
         <h3> {{msg}} </h3>
         <div class="border-movie" v-bind:key="movie.id" v-for="movie in movies">
             <div class="single-movie" @click="goToMovie(movie.id)" @mouseenter="change_class(movie)" @mouseleave="re_class()">
@@ -33,17 +33,26 @@
 
 <script>
 import movieApi from '../../api/movieApi'
+import { mapGetters } from 'vuex'
 export default {
   name: 'UserMovies',
-  mounted() {
-    this.get_today_movies()
-  },
   data() {
     return {
       msg: '猜你喜欢',
       current_movie: '',
       movies: []
     }
+  },
+  computed: {
+    ...mapGetters([
+      'user_id'
+    ]),
+    rating() {
+      return parseFloat(this.current_movie.imdb_rating)
+    }
+  },
+  mounted() {
+    this.get_today_movies()
   },
   methods: {
     change_class: function(arg) {
@@ -53,24 +62,18 @@ export default {
       this.current_movie = ''
     },
     get_today_movies() {
-      var text = ''
-      var possible = 'abcdefghijklmnopqrstuvwxyz'
-      for (var i = 0; i < 1; i++) { text += possible.charAt(Math.floor(Math.random() * possible.length)) }
-      movieApi.searchMovieByTitle(text, 1, true).then((res) => {
-        if (res.data['Response'] === 'False') {
-          this.$message({ message: res.data['Error'], type: 'warning', duration: 1000, center: true })
-        } else {
-          this.movies = res.data.data.projects.slice(0, 5)
-        }
-      })
+      if (this.user_id !== null) {
+        movieApi.recommendationByUser(this.user_id).then((res) => {
+          if (res.data['Response'] === 'False') {
+            this.$message({ message: res.data['Error'], type: 'warning', duration: 1000, center: true })
+          } else {
+            this.movies = res.data.data.slice(0, 5)
+          }
+        })
+      }
     },
     goToMovie(id) {
       this.$router.push('/movie/' + id)
-    }
-  },
-  computed: {
-    rating() {
-      return parseFloat(this.current_movie.imdb_rating)
     }
   }
 }

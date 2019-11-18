@@ -77,8 +77,10 @@ http.interceptors.response.use(
     if (error.response && error.response.data && error.response.data.message) {
       var jsonObj = JSON.parse(error.response.data.message)
       Message.error(jsonObj.message)
+      hideLoading()
     } else {
       Message.error(error.message)
+      hideLoading()
     }
     return Promise.reject(error)
   }
