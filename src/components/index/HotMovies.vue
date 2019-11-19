@@ -6,34 +6,16 @@
         <div>
           <img width="75%" height="300" src="http://img5.mtime.cn/mg/2016/11/29/090307.59995664.jpg">
           <div class="hot_movie_context">
-            <label>哈尔的移动城堡&nbsp;<span>1999</span></label>
+            <label>海洋奇缘&nbsp;<span>2016</span></label>
             <el-rate v-model="value5" disabled show-text text-color="#ff9900">
             </el-rate>
             <div class="hot_movie_introduce">
-              <label>导演&nbsp;&nbsp;宫崎骏</label><br>
-              <label>演员&nbsp;&nbsp;宫崎骏</label>
+              <label>导演&nbsp;&nbsp;罗恩·克莱蒙兹</label><br>
+              <label>演员&nbsp;&nbsp;奥丽依·卡拉瓦霍</label>
             </div>
             <div class="hot_movie_comment">
               <label>推荐理由</label><br>
-              <p>上帝在第七天创造了人类，赋予了他们善良、感恩、勤劳、快乐、谦虚、克制与无私。</p>
-            </div>
-          </div>
-        </div>
-      </slider-item>
-      <slider-item>
-        <div>
-          <img width="75%" height="300" src="http://img5.mtime.cn/mg/2016/11/26/090325.11034692.jpg">
-          <div class="hot_movie_context">
-            <label>你的名字&nbsp;<span>2016</span></label>
-            <el-rate v-model="value5" disabled show-text text-color="#ff9900">
-            </el-rate>
-            <div class="hot_movie_introduce">
-              <label>导演&nbsp;&nbsp;宫崎骏</label><br>
-              <label>演员&nbsp;&nbsp;宫崎骏</label>
-            </div>
-            <div class="hot_movie_comment">
-              <label>推荐理由</label><br>
-              <p>上帝在第七天创造了人类，赋予了他们善良、感恩、勤劳、快乐、谦虚、克制与无私。</p>
+              <p>航海世家后代的波利尼西亚公主莫阿娜，为了找寻传说中的神秘之岛，独自踏上了航海之旅的故事。</p>
             </div>
           </div>
         </div>
@@ -42,16 +24,16 @@
         <div>
           <img width="75%" height="300" src="http://img5.mtime.cn/mg/2016/11/28/155750.78638707.jpg">
           <div class="hot_movie_context">
-            <label>昨夜秋风凋碧树&nbsp;<span>1999</span></label>
+            <label>海洋奇缘&nbsp;<span>2016</span></label>
             <el-rate v-model="value5" disabled show-text text-color="#ff9900">
             </el-rate>
             <div class="hot_movie_introduce">
-              <label>导演&nbsp;&nbsp;宫崎骏</label><br>
-              <label>演员&nbsp;&nbsp;宫崎骏</label>
+              <label>导演&nbsp;&nbsp;罗恩·克莱蒙兹</label><br>
+              <label>演员&nbsp;&nbsp;奥丽依·卡拉瓦霍</label>
             </div>
             <div class="hot_movie_comment">
               <label>推荐理由</label><br>
-              <p>上帝在第七天创造了人类，赋予了他们善良、感恩、勤劳、快乐、谦虚、克制与无私。</p>
+              <p>航海世家后代的波利尼西亚公主莫阿娜，为了找寻传说中的神秘之岛，独自踏上了航海之旅的故事。</p>
             </div>
           </div>
         </div>

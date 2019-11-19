@@ -142,12 +142,11 @@ export default {
   methods: {
     get_one_movie() {
       var id = this.$route.params.id
-      movieApi.searchMovieByID(id)
-        .then((res) => {
-          this.movie = res.data.data
+      movieApi.searchMovieByID(id).then((res) => {
+        this.movie = res.data.data
+        movieApi.similarityMovieByID(id).then((res) => {
+          this.$set(this.movie, 'similarityMovies', res.data.data)
         })
-      movieApi.similarityMovieByID(id).then((res) => {
-        this.$set(this.movie, 'similarityMovies', res.data.data)
       })
     },
     goTo(id) {
