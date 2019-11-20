@@ -139,6 +139,15 @@ export default {
       userApi.insertRecord(data)
     }
   },
+  watch: {
+    '$route'(to, from) {
+      this.get_one_movie()
+      this.second = 0
+      setInterval(() => {
+        this.second++
+      }, 1000)
+    }
+  },
   methods: {
     get_one_movie() {
       var id = this.$route.params.id
